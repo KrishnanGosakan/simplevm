@@ -8,6 +8,9 @@
 //Page size is 4KB
 
 //Add any important includes here which you may need
+#include <math.h>
+#include <string.h>
+#include <pthread.h>
 
 #define PGSIZE 4096
 
@@ -31,16 +34,10 @@ struct tlb {
     * Think about the size of each TLB entry that performs virtual to physical
     * address translation.
     */
-
+    unsigned long valid_and_tag;
+    pte_t page_table_entry;
 };
-struct tlb tlb_store;
 
-//physical memory
-char *physical_memory = NULL;
-
-//bit vectors for physical and virtual memory
-char *physical_bitmap = NULL,
-	 *virtual_bitmap = NULL;
 
 void set_physical_mem();
 pte_t* translate(pde_t *pgdir, void *va);
